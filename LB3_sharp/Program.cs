@@ -5,20 +5,11 @@ namespace LB3_sharp
 
     class Account
     {
-        private double money;
+        internal double money;
 
         public Account(double money)
         {
             this.money = money;
-        }
-
-        public void withdraw(double money)
-        {
-                this.money -= money;
-        }
-        public void deposit(double money)
-        {
-                this.money += money;
         }
         public void show()
         {
@@ -36,7 +27,14 @@ namespace LB3_sharp
     }
     class Program
     {
-
+        static void withdraw(double money, Account person)
+        {
+            person.money -= money;
+        }
+        static void deposit(double money, Account person)
+        {
+            person.money += money;
+        }
         static int splitLine(string str)
         {
             for (int i=0; i < str.Length; i++)
@@ -65,16 +63,16 @@ namespace LB3_sharp
                 oper = oper.Substring(0, count);
                 switch (oper) {
                     case "withdraw":
-                        //user.withdraw(money);
-                        //user.show();
-                        user.moneyput(-money);
-                        Console.WriteLine("Money: {0}",user.moneyget());
+                        withdraw(money,user);
+                        user.show();
+                        //user.moneyput(-money);
+                        //Console.WriteLine("Money: {0}",user.moneyget());
                         break;
                     case "deposit":
-                        //user.deposit(money);
-                        //user.show();
-                        user.moneyput(money);
-                        Console.WriteLine("Money: {0}", user.moneyget());
+                        deposit(money,user);
+                        user.show();
+                        //user.moneyput(money);
+                        //Console.WriteLine("Money: {0}", user.moneyget());
                         break;
                     default:
                         Console.WriteLine("Такой операции не существует");
