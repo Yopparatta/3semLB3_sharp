@@ -49,6 +49,7 @@ namespace LB3_sharp
         {
             Account user = new Account(0);
             double money;
+            bool change=true;
             string oper;
             int count;
             while (true) {
@@ -57,28 +58,41 @@ namespace LB3_sharp
                 if (oper == "exit")
                 {
                     Environment.Exit(0);
+                } else if (oper == "change")
+                {
+                    change = !change;
+                    continue;
                 }
                 count = splitLine(oper);
                 money = Convert.ToDouble(oper.Substring(count + 1));
                 oper = oper.Substring(0, count);
                 switch (oper) {
                     case "withdraw":
-                        withdraw(money,user);
-                        user.show();
-                        //user.moneyput(-money);
-                        //Console.WriteLine("Money: {0}",user.moneyget());
+                        if (change)
+                        {
+                            withdraw(money, user);
+                            user.show();
+                        }
+                        else { 
+                        user.moneyput(-money);
+                        Console.WriteLine("Money: {0}",user.moneyget());
+                        }
                         break;
                     case "deposit":
-                        deposit(money,user);
-                        user.show();
-                        //user.moneyput(money);
-                        //Console.WriteLine("Money: {0}", user.moneyget());
+                        if (change)
+                        {
+                            deposit(money, user);
+                            user.show();
+                        }
+                        else
+                        {
+                            user.moneyput(money);
+                            Console.WriteLine("Money: {0}", user.moneyget());
+                        }
                         break;
                     default:
                         Console.WriteLine("Такой операции не существует");
                         break;
-
-
                 } 
             }
         }
